@@ -8,7 +8,7 @@ class Contacts extends Component {
         id: 1,
         name: 'Ali Zaki',
         email: 'alizaki@gmail.com',
-        phone: '555-555-5555'
+        phone: '222-555-5555'
       },
       {
         id: 2,
