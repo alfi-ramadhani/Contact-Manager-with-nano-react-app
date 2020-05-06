@@ -22,8 +22,8 @@ class Contact extends Component {
           const { dispatch } = value;
           
           return (
-            <div className='card card-body mb-3'>
-              <h4>{name}
+            <div className='card card-body pb-0 mb-3'>
+              <h5>{name}
                 <i onClick={() =>
                 this.setState({
                   showContactInfo: !this.state.showContactInfo
@@ -32,10 +32,10 @@ class Contact extends Component {
                   style={{cursor: 'pointer', padding: '15px'}} />
                 <i className="fas fa-times" style={{cursor: 'pointer', float: 'right', color: 'red'}}
                 onClick={this.onDeleteClick.bind(this, id, dispatch)} />         
-              </h4>
+              </h5>
               {showContactInfo ? (<ul>
                 <li>Email : {email}</li>
-                <li>Phone : {phone}</li> 
+                <li>Phone : {phone}</li>
               </ul>) : null}    
             </div>
           )

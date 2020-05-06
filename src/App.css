@@ -16,3 +16,13 @@ input[type='text'] {
   border-radius: 4px;
   color: rgb(31, 31, 31);
 }
+
+.footer {
+  width: 100%;
+  padding: 10px 10px;
+  position: fixed;
+  color: #fff;
+  text-align: center;
+  font-size: small;
+  bottom: 0
+}
