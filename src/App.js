@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './components/layout/Header';
 import About from './components/pages/About';
+import NotFound from './components/pages/NotFound';
 
 class App extends Component {
 
@@ -21,6 +22,7 @@ class App extends Component {
                 <Route exact path="/" component={Contacts} />
                 <Route exact path="/contact/add" component={AddContact} />
                 <Route exact path="/about" component={About} />
+                <Route component={NotFound} />
               </Switch>              
             </div>
             <div className="bg-info footer">&copy; 2020 Contact Manager. All rights reserved.</div>
