@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
 import { Consumer } from '../../context';
 import TextInputGroup from '../layout/TextInputGroup';
-// import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
-class AddContact extends Component {
+class EditContact extends Component {
   state = {
     name: '',
     email: '',
     phone: '',
     errors: {},
-    btnsubmit: "Add contact",
-    btnclass: "btn btn-info btn-block"
+    btnsubmit: "Update contact",
+    btnclass: "btn btn-dark btn-block"
   }
 
-  // onSubmit = (dispatch, e) => {
-  //   e.preventDefault();
-  //   const { name, email, phone } = this.state;
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+    const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+    const contact = res.data;
+    this.setState({
+      name: contact.name,
+      email: contact.email,
+      phone: contact.phone
+    })
+  }
 
-    //ASYNC AWAIT
-    onSubmit = async (dispatch, e) => {
-      e.preventDefault();
-      const { name, email, phone } = this.state;
+  //ASYNC AWAIT
+  onSubmit = async (dispatch, e) => {
+    e.preventDefault();
+    
+    const { name, email, phone } = this.state;
 
     // Check for errors
     if (name === '') {
@@ -39,26 +46,16 @@ class AddContact extends Component {
       return;
     }
 
-    // CREATE NEW 0BJECT/ CONTACT
-    // const newContact = {
-    //   id: uuidv4(),
-    //   name,
-    //   email,
-    //   phone
-    // };
-    // dispatch({ type: 'ADD_CONTACT', payload: newContact });
-
-    const newContact = {
+    const updContact = {
       name,
       email,
       phone
     };
-    const res = await axios.post(
-      `https://jsonplaceholder.typicode.com/users`,
-      newContact
-    )
-      // .then(res => dispatch({ type: 'ADD_CONTACT', payload: res.data }));
-      dispatch({ type: 'ADD_CONTACT', payload: res.data })
+
+    const { id } = this.props.match.params;
+    const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`, updContact);
+
+    dispatch({ type: 'UPDATE_CONTACT', payload: res.data });
 
     // Clear State
     this.setState({
@@ -66,19 +63,20 @@ class AddContact extends Component {
       email: '',
       phone: '',
       errors: {},
-      btnsubmit: "Added! Redirecting...",
+      btnsubmit: "Updated! Redirecting...",
       btnclass: "btn btn-success btn-block"
     })
 
     setTimeout(() => {
       this.props.history.push('/')
     }, 800);
+
   }
 
   onChange = e => this.setState({
     [e.target.name]: e.target.value,
-    btnsubmit: "Add contact",
-    btnclass: "btn btn-info btn-block"
+    btnsubmit: "Update contact",
+    btnclass: "btn btn-dark btn-block"
   });
   
   render() {
@@ -90,7 +88,7 @@ class AddContact extends Component {
           const { dispatch } = value;
           return (
             <div className="card mb-3">
-              <div className="card-header"><h4>Add Contact</h4></div>
+              <div className="card-header"><h4>Edit Contact</h4></div>
               <div className="card-body">
                 <form onSubmit={this.onSubmit.bind(this, dispatch)}>
                   <TextInputGroup 
@@ -129,4 +127,4 @@ class AddContact extends Component {
   }
 }
 
-export default AddContact;
+export default EditContact;

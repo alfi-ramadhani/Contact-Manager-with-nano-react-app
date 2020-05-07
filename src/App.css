@@ -17,10 +17,13 @@ input[type='text'] {
   color: rgb(31, 31, 31);
 }
 
+#mainbody {
+  min-height: 750px;
+}
+
 .footer {
   width: 100%;
   padding: 10px 10px;
-  position: fixed;
   color: #fff;
   text-align: center;
   font-size: small;

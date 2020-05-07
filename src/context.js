@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 const Context = React.createContext();
 
@@ -14,6 +15,11 @@ const reducer = (state, action) => {
         ...state,
         contacts: [action.payload, ...state.contacts]
       };
+    case 'UPDATE_CONTACT':
+      return {
+        ...state,
+        contacts: state.contacts.map(contact => contact.id === action.payload.id ? (contact = action.payload) : contact)
+      };
     default:
       return state;
   }
@@ -22,26 +28,32 @@ const reducer = (state, action) => {
 export class Provider extends Component {
   state = {
     contacts: [
-      {
-        id: 1,
-        name: 'Ali Zaki',
-        email: 'alizaki@gmail.com',
-        phone: '222-555-5555'
-      },
-      {
-        id: 2,
-        name: 'Abu Bakar',
-        email: 'abubakar@gmail.com',
-        phone: '333-555-5555'
-      },
-      {
-        id: 3,
-        name: 'Siti Sarimah',
-        email: 'sitisarimah@gmail.com',
-        phone: '444-555-5555'
-      }
+      // {
+      //   id: 1,
+      //   name: 'Ali Zaki',
+      //   email: 'alizaki@gmail.com',
+      //   phone: '222-555-5555'
+      // },
+      // {
+      //   id: 2,
+      //   name: 'Abu Bakar',
+      //   email: 'abubakar@gmail.com',
+      //   phone: '333-555-5555'
+      // }
     ],
     dispatch: action => this.setState(state => reducer(state, action))
+  }
+
+  // USING FETCH
+  // componentDidMount() {
+  //   axios.get('https://jsonplaceholder.typicode.com/users')
+  //     .then(res => this.setState({contacts: res.data}))
+  // }
+
+  // USING ASYNC AWAIT
+  async componentDidMount() {
+    const res = await axios.get('https://jsonplaceholder.typicode.com/users');
+    this.setState({contacts: res.data});
   }
 
   render() {
