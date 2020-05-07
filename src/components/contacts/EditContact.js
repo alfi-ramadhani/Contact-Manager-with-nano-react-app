@@ -78,6 +78,11 @@ class EditContact extends Component {
     btnsubmit: "Update contact",
     btnclass: "btn btn-dark btn-block"
   });
+
+  onClick = e => this.setState({
+    btnsubmit: "Processing contact",
+    btnclass: "btn btn-warning btn-block"
+  });
   
   render() {
     const { name, email, phone , errors, btnsubmit, btnclass } = this.state;
@@ -116,7 +121,12 @@ class EditContact extends Component {
                     onChange={this.onChange}
                     error={errors.phone}
                   />
-                  <input className={btnclass} type="submit" value={btnsubmit}/>
+                  <input
+                  className={btnclass}
+                  type="submit"
+                  value={btnsubmit}
+                  onClick={this.onClick}
+                  />
                 </form>
               </div>
             </div>

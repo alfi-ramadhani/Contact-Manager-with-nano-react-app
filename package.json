@@ -2,12 +2,13 @@
   "name": "nano-react-app",
   "version": "0.1.0",
   "homepage": "https://alfi-ramadhani.github.io/contact-manager",
-  "description": "Simpple app to manage contacts",
+  "description": "Simple app to manage contacts",
   "scripts": {
-    "deploy": "npm run build && gh-pages -d build",
-    "start": "parcel index.html",
-    "build": "parcel build index.html"
-  },
+		"start": "parcel index.html",
+		"build": "parcel build index.html --public-url '.'",
+		"predeploy": "rm -rf dist && parcel build index.html --public-url '.'",
+		"deploy": "gh-pages -d dist"
+	},
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
